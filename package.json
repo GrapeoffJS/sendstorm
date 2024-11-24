@@ -1,7 +1,7 @@
 {
   "name": "sendstorm",
   "version": "1.0.0",
-  "description": "Command-Line Interface for debugging TCP microservices",
+  "description": "A versatile CLI tool for testing microservices over multiple protocols.",
   "main": "dist/index.js",
   "bin": {
     "sendstorm": "./dist/index.js"
@@ -60,5 +60,11 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "inquirer": "^12.1.0",
+    "log-symbols": "^7.0.0"
   }
 }
