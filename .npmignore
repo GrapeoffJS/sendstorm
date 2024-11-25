@@ -7,3 +7,4 @@ commitlint.config.js
 yarn.lock
 tsconfig.json
 node_modules
+src
