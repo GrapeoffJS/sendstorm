@@ -37,61 +37,63 @@ Use `Commitizen` for writing commits:
 $ npx cz
 ```
 
-1. type: Type of change
+1. **type**: Type of change
 
-- feat: Introducing a new feature.
-- fix: Fixing a bug.
-- docs: Updating documentation.
-- style: Code style changes (e.g., formatting).
-- refactor: Code changes without adding features or fixing bugs.
-- test: Adding or updating tests.
-- build: Changes affecting the build system or dependencies.
-- ci: Changes to CI/CD configurations.
-- chore: Miscellaneous tasks (e.g., dependency updates).
-- perf: Performance improvements.
+- `feat`: Introducing a new feature.
+- `fix`: Fixing a bug.
+- `docs`: Updating documentation.
+- `style`: Code style changes (e.g., formatting).
+- `refactor`: Code changes without adding features or fixing bugs.
+- `test`: Adding or updating tests.
+- `build`: Changes affecting the build system or dependencies.
+- `ci`: Changes to CI/CD configurations.
+- `chore`: Miscellaneous tasks (e.g., dependency updates).
+- `perf`: Performance improvements.
 
-2. scope: Area of change
+2. **scope**: Area of change
 
-Examples: cli, tcp, core, docs.
+Examples: `cli`, `tcp`, `core`, `docs`.
 
-3. short description: Summary of changes
+3. **short description**: Summary of changes
 
 - Use an imperative tone (e.g., “Add interactive mode” instead of “Added”).
 - Keep it under 50 characters.
 
-## Example Commits
+### Example Commits
 
-### Adding a feature:
+#### Adding a feature:
 
 `feat(cli): add interactive mode for TCP requests`
 
-### Fixing a bug:
+#### Fixing a bug:
 
-fix(tcp): resolve connection timeout issue
+`fix(tcp): resolve connection timeout issue`
 
-	- Updating documentation:
+#### Updating documentation:
 
-docs: improve setup instructions in README
+`docs: improve setup instructions in README`
 
-### Branching Rules
+---
+
+## Branching Rules
 
 We use the following branching strategy to manage our development workflow:
 
 ### Main Branches
 
-1. master:
+1. **master**:
 
 - The stable branch with production-ready code.
 - Direct pushes are prohibited.
 
-2. dev:
+2. **dev**:
 
 - The active development branch.
-- New features and fixes are merged here before going to main.
+- New features and fixes are merged here before going to `master`.
 
 ### Feature and Fix Branches
 
-For new features, fixes, and experiments, create temporary branches off dev:
+For new features, fixes, and experiments, create temporary branches off `dev`:
 
 #### Feature branches:
 
@@ -111,7 +113,7 @@ Example: `fix/cli-output-error`
 
 Example: `experiment/performance-improvements`
 
-#### Release Branches
+### Release Branches
 
 For release preparation:
 
@@ -119,27 +121,31 @@ For release preparation:
 
 Example: `release/1.0.0`
 
+---
+
 ## Pull Request Process
 
-1. Create a branch:
+1. **Create a branch**:
 
 - Ensure your branch name follows the Branching Rules.
 
-2. Write clean commits:
+2. **Write clean commits**:
 
 - Follow the Commit Message Guidelines.
 
-3. Run tests locally:
+3. **Run tests locally**:
 
 - Ensure all tests pass before opening a PR.
 
-4. Submit your pull request:
+4. **Submit your pull request**:
 
 - Write a clear title and description.
 - Link related issues (if applicable).
 - Add test scenarios for reviewers.
 
-# Development Setup
+---
+
+## Development Setup
 
 To set up the project locally:
 
@@ -147,7 +153,6 @@ To set up the project locally:
 
 ```bash
 $ git clone https://github.com/YourUsername/SendStorm.git
-...
 $ cd SendStorm
 ```
 
@@ -162,6 +167,8 @@ $ yarn install
 ```bash
 $ yarn build
 ```
+
+---
 
 ## Testing
 
@@ -182,6 +189,8 @@ $ yarn test --watch
 ```bash
 $ yarn lint
 ```
+
+---
 
 ## Contact
 
