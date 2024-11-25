@@ -1,6 +1,6 @@
 {
   "name": "sendstorm",
-  "version": "1.0.0",
+  "version": "1.0.1-alpha.0",
   "description": "A versatile CLI tool for testing microservices over multiple protocols.",
   "main": "dist/index.js",
   "bin": {
