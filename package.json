@@ -8,9 +8,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/GrapeoffJS/sendstorm"
+    "url": "https://github.com/findingtheconcept/sendstorm"
   },
-  "homepage": "https://github.com/GrapeoffJS/sendstorm#readme",
+  "homepage": "https://github.com/findingtheconcept/sendstorm#readme",
   "author": "Dmitriy Grape <grapeoff.official@gmail.com>",
   "license": "GPL-3.0-only",
   "private": false,
@@ -23,7 +23,7 @@
     "tools"
   ],
   "bugs": {
-    "url": "https://github.com/GrapeoffJS/sendstorm/issues",
+    "url": "https://github.com/findingtheconcept/sendstorm/issues",
     "email": "grapeoff.official@gmail.com"
   },
   "scripts": {
