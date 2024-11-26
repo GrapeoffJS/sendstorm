@@ -31,3 +31,5 @@ program
   .name('sendstorm')
   .description('A versatile CLI tool for testing microservices over multiple protocols')
   .version(__VERSION__);
+
+program.parse(process.argv);
