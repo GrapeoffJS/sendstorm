@@ -5,6 +5,8 @@ const esbuildPluginTsc = require('esbuild-plugin-tsc');
 const envFilePlugin = require('esbuild-envfile-plugin');
 const packageJson = require("./package.json");
 const { resolve } = require("node:path");
+const os = require("os");
+const { chmod } = require("node:fs");
 
 const isProduction = process.env.NODE_ENV === 'production';
 const isWatchMode = process.argv.includes('--watch');
@@ -60,9 +62,8 @@ async function runBuild() {
       minify: isProduction,
       splitting: false,
       banner: {
-        js: `
+        js: `#!/usr/bin/env node
 ${licenseBanner}
-#!/usr/bin/env node
 `,
       },
       logLevel: 'info',
@@ -97,6 +98,18 @@ ${licenseBanner}
   } catch (error) {
     console.error('Build failed:', error);
     process.exit(1);
+  }
+
+  if (os.platform() === 'linux' || os.platform() === 'darwin') {
+    try {
+      chmod(outputFile, '755', () => {
+        console.log(`Execution rights added to ${outputFile}`);
+      });
+    } catch (err) {
+      console.error(`Failed to set execution rights: ${err.message}`);
+    }
+  } else {
+    console.log(`Skipping execution rights setup for platform: ${os.platform()}`);
   }
 }
 
