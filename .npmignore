@@ -2,7 +2,7 @@
 .husky
 .idea
 .editorconfig
-.eslintrc.js
+.eslintrc.cjs
 commitlint.config.js
 yarn.lock
 tsconfig.json
