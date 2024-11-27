@@ -2,8 +2,8 @@
   "compilerOptions": {
     "declaration": true,
     "declarationMap": true,
-    "target": "ES2022",
-    "module": "commonjs",
+    "target": "ESNext",
+    "module": "ESNext",
     "lib": ["ES2022"],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
