@@ -25,11 +25,12 @@
  * along with SendStorm. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import chalk from 'chalk';
 import { program } from 'commander';
 
 program
   .name('sendstorm')
-  .description('A versatile CLI tool for testing microservices over multiple protocols')
-  .version(__VERSION__);
+  .description(chalk.bold(chalk.yellowBright('A versatile CLI tool for testing microservices over multiple protocols')))
+  .version(chalk.yellowBright(__VERSION__)); // Not an error, will be substituted properly to an actual package version by ESBuild
 
 program.parse(process.argv);

@@ -1,13 +1,13 @@
-const { context } = require('esbuild');
-const { clean } = require('esbuild-plugin-clean');
-const { nodeExternalsPlugin } = require('esbuild-node-externals');
-const esbuildPluginTsc = require('esbuild-plugin-tsc');
-const envFilePlugin = require('esbuild-envfile-plugin');
-const packageJson = require("./package.json");
-const { resolve } = require("node:path");
-const os = require("os");
-const { chmod } = require("node:fs");
+import { context } from 'esbuild';
+import { clean } from 'esbuild-plugin-clean';
+import { nodeExternalsPlugin } from 'esbuild-node-externals';
+import esbuildPluginTsc from 'esbuild-plugin-tsc';
+import { resolve } from 'node:path';
+import os from 'os';
+import { chmod } from 'node:fs/promises';
+import * as fs from "node:fs/promises";
 
+const packageJson = JSON.parse((await fs.readFile('./package.json', 'utf-8')).toString());
 const isProduction = process.env.NODE_ENV === 'production';
 const isWatchMode = process.argv.includes('--watch');
 
@@ -47,8 +47,8 @@ async function runBuild() {
  */
 `;
 
-  const entryFile = resolve(__dirname, 'src/index.ts');
-  const outputFile = resolve(__dirname, 'dist/index.js');
+  const entryFile = resolve('./src/index.ts');
+  const outputFile = resolve('./dist/index.js');
 
   try {
     const ctx = await context({
@@ -56,7 +56,7 @@ async function runBuild() {
       outfile: 'dist/index.js',
       platform: 'node',
       target: 'node16',
-      format: 'cjs',
+      format: 'esm',
       bundle: true,
       sourcemap: !isProduction,
       minify: isProduction,
@@ -76,8 +76,8 @@ ${licenseBanner}
       plugins: [
         clean({ patterns: ['./dist'] }),
         nodeExternalsPlugin(),
-        esbuildPluginTsc({ tsconfigPath: './tsconfig.json' }),
-        envFilePlugin],
+        esbuildPluginTsc({ tsconfigPath: './tsconfig.json' })
+      ],
     });
 
     logBuildInfo(entryFile, outputFile, {
@@ -102,9 +102,8 @@ ${licenseBanner}
 
   if (os.platform() === 'linux' || os.platform() === 'darwin') {
     try {
-      chmod(outputFile, '755', () => {
-        console.log(`Execution rights added to ${outputFile}`);
-      });
+      await chmod(outputFile, '755');
+      console.log(`Execution rights added to ${outputFile}`);
     } catch (err) {
       console.error(`Failed to set execution rights: ${err.message}`);
     }
@@ -113,4 +112,4 @@ ${licenseBanner}
   }
 }
 
-runBuild();
+await runBuild();

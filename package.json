@@ -3,6 +3,7 @@
   "version": "1.0.0-alpha.0",
   "description": "A versatile CLI tool for testing microservices over multiple protocols.",
   "main": "dist/index.js",
+  "type": "module",
   "bin": {
     "sendstorm": "./dist/index.js"
   },
@@ -27,8 +28,8 @@
     "email": "grapeoff.official@gmail.com"
   },
   "scripts": {
-    "build": "NODE_ENV=production node esbuild.config.js",
-    "dev": "NODE_ENV=development node esbuild.config.js --watch",
+    "build": "NODE_ENV=production node esbuild.config.mjs",
+    "dev": "NODE_ENV=development node esbuild.config.mjs --watch",
     "start": "node dist/index.js",
     "clean": "rm -rf dist",
     "build:dev": "tsc --watch -p tsconfig.json",
