@@ -3,7 +3,7 @@
  *
  * File: index.ts
  * Project: sendstorm
- * Author: grapeoff
+ * Author: Dmitriy Grape
  * Date: 26.11.2024
  *
  * Copyright (C) 2024 Dmitriy Grape
