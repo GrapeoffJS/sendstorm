@@ -13,6 +13,8 @@ jobs:
     name: Analyze (${{ matrix.language }})
     runs-on: ubuntu-latest
     permissions:
+      actions: read
+      contents: read
       security-events: write
 
     strategy:
@@ -20,7 +22,6 @@ jobs:
       matrix:
         include:
           - language: javascript-typescript
-            build-mode: none
 
     steps:
       - name: Checkout repository
@@ -31,19 +32,15 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install Yarn
-        run: npm install --global yarn
-
       - name: Install dependencies
         run: |
+          npm install --global yarn
           yarn install --frozen-lockfile
-          yarn build
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
-          build-mode: ${{ matrix.build-mode }}
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
