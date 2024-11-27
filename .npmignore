@@ -8,3 +8,7 @@ yarn.lock
 tsconfig.json
 node_modules
 src
+esbuild.dev.mjs
+esbuild.prod.mjs
+build.log
+build-logger.mjs
