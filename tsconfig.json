@@ -20,7 +20,14 @@
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "@cli/*": ["./src/cli/*"],
+      "@core/*": ["./src/core/*"],
+      "@shared/*": ["./src/shared/*"]
+    }
   },
   "include": ["src/**/*.ts"],
   "exclude": [
