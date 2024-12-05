@@ -1,10 +1,10 @@
 /*
  * This file is part of the SendStorm project.
  *
- * File: index.ts
+ * File: main.ts
  * Project: sendstorm
  * Author: Dmitriy Grape
- * Date: 26.11.2024
+ * Date: 27.11.2024
  *
  * Copyright (C) 2024 Dmitriy Grape
  *
@@ -25,12 +25,13 @@
  * along with SendStorm. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import chalk from 'chalk';
-import { program } from 'commander';
+import 'reflect-metadata';
 
-program
-  .name('sendstorm')
-  .description(chalk.bold(chalk.yellowBright('A versatile CLI tool for testing microservices over multiple protocols')))
-  .version(chalk.yellowBright(__VERSION__)); // Not an error, will be substituted properly to an actual package version by ESBuild
+import { TcpCommand } from '@cli/commands/tcp.command';
+import { CliApplication } from '@cli/index';
+import { TcpService } from '@core/services/tcp.service';
 
-program.parse(process.argv);
+const application = new CliApplication([new TcpCommand(new TcpService())]);
+
+application.initialize();
+application.run();
