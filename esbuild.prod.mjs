@@ -44,7 +44,7 @@ const licenseBanner = `
  */
 `;
 
-const entryFile = resolve('./src/index.ts');
+const entryFile = resolve('./src/main.ts');
 const outputFile = resolve('./dist/index.js');
 
 const logBuildInfo = () => {
@@ -62,7 +62,7 @@ Format: ESM
 async function build() {
 
   const ctx = await context({
-    entryPoints: ['./src/index.ts'],
+    entryPoints: ['./src/main.ts'],
     outfile: outputFile,
     platform: 'node',
     target: 'node16',
