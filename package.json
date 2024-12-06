@@ -80,6 +80,7 @@
     "esbuild": "^0.24.0",
     "inquirer": "^12.1.0",
     "log-symbols": "^7.0.0",
+    "ora": "^8.1.1",
     "reflect-metadata": "^0.2.2"
   }
 }

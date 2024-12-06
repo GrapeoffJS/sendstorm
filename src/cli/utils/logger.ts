@@ -1,10 +1,10 @@
 /*
  * This file is part of the SendStorm project.
  *
- * File: option.decorator.ts
+ * File: logger.ts
  * Project: sendstorm
  * Author: Dmitriy Grape
- * Date: 28.11.2024
+ * Date: 07.12.2024
  *
  * Copyright (C) 2024 Dmitriy Grape
  *
@@ -25,24 +25,23 @@
  * along with SendStorm. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import 'reflect-metadata';
+import chalk from 'chalk';
+import logSymbols from 'log-symbols';
 
-export interface OptionMetadata {
-  flags: string;
-  description: string;
-  choices?: string[];
-  defaultValue?: any;
-  required?: boolean;
-}
+export class Logger {
+  static info(message: string) {
+    console.info(`${logSymbols.info} ${chalk.blueBright(message)}`);
+  }
 
-export function Option(metadata: OptionMetadata): PropertyDecorator {
-  return (target, propertyKey) => {
-    Reflect.defineMetadata('option', metadata, target, propertyKey);
+  static error(message: string) {
+    console.error(`${logSymbols.error} ${chalk.redBright(message)}`);
+  }
 
-    const existingProperties = (Reflect.getMetadata('options', target) as string[]) || [];
+  static success(message: string) {
+    console.log(`${logSymbols.success} ${chalk.greenBright(message)}`);
+  }
 
-    existingProperties.push(propertyKey as string);
-
-    Reflect.defineMetadata('options', existingProperties, target);
-  };
+  static warn(message: string) {
+    console.warn(`${logSymbols.warning} ${chalk.yellowBright(message)}`);
+  }
 }

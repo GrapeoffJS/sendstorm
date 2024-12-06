@@ -1,10 +1,10 @@
 /*
  * This file is part of the SendStorm project.
  *
- * File: option.decorator.ts
+ * File: spinner.ts
  * Project: sendstorm
  * Author: Dmitriy Grape
- * Date: 28.11.2024
+ * Date: 07.12.2024
  *
  * Copyright (C) 2024 Dmitriy Grape
  *
@@ -25,24 +25,35 @@
  * along with SendStorm. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import 'reflect-metadata';
+import ora, { Ora } from 'ora';
 
-export interface OptionMetadata {
-  flags: string;
-  description: string;
-  choices?: string[];
-  defaultValue?: any;
-  required?: boolean;
-}
+export class Spinner {
+  private static spinner: Ora | null = null;
 
-export function Option(metadata: OptionMetadata): PropertyDecorator {
-  return (target, propertyKey) => {
-    Reflect.defineMetadata('option', metadata, target, propertyKey);
+  static start(text: string) {
+    if (!this.spinner) {
+      this.spinner = ora(text).start();
+    }
+  }
 
-    const existingProperties = (Reflect.getMetadata('options', target) as string[]) || [];
+  static stop() {
+    if (this.spinner) {
+      this.spinner.stop();
+      this.spinner = null;
+    }
+  }
 
-    existingProperties.push(propertyKey as string);
+  static succeed(text: string) {
+    if (this.spinner) {
+      this.spinner.succeed(text);
+      this.spinner = null;
+    }
+  }
 
-    Reflect.defineMetadata('options', existingProperties, target);
-  };
+  static fail(text: string) {
+    if (this.spinner) {
+      this.spinner.fail(text);
+      this.spinner = null;
+    }
+  }
 }

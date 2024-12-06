@@ -25,10 +25,9 @@
  * along with SendStorm. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { Option } from '@shared/decorators/option.decorator';
 import { Type } from 'class-transformer';
 import { IsInt, IsNotEmpty, IsOptional, IsString, Max, Min } from 'class-validator';
-
-import { Option } from '../decorators/option.decorator';
 
 export class TcpCommandDto {
   @Option({
@@ -57,16 +56,15 @@ export class TcpCommandDto {
     required: true,
   })
   @IsString()
-  data!: string;
+  data!: string | Record<string, any>;
 
   @Option({
-    flags: '-e, --encoding <encoding>',
-    description: 'Encoding of the data (default: utf8)',
-    defaultValue: 'utf-8',
+    flags: '--protocol <protocol>',
+    description: 'Transport protocol to use',
+    choices: ['default', 'json', 'nestjs'],
+    defaultValue: 'default',
   })
-  @IsOptional()
-  @IsString()
-  encoding?: BufferEncoding;
+  transport!: string;
 
   @Option({ flags: '--edit', description: 'Open built-in JavaScript/JSON BuiltinEditor', defaultValue: false })
   @IsOptional()
