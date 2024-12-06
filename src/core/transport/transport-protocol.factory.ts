@@ -1,10 +1,10 @@
 /*
  * This file is part of the SendStorm project.
  *
- * File: option.decorator.ts
+ * File: transport-protocol.factory.ts
  * Project: sendstorm
  * Author: Dmitriy Grape
- * Date: 28.11.2024
+ * Date: 07.12.2024
  *
  * Copyright (C) 2024 Dmitriy Grape
  *
@@ -25,24 +25,26 @@
  * along with SendStorm. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import 'reflect-metadata';
+import { DefaultTransportProtocol } from '@core/transport/default.transport-protocol';
+import { JsonTransportProtocol } from '@core/transport/json.transport-protocol';
+import { NestJsTransportProtocol } from '@core/transport/nestjs.transport-protocol';
+import { TransportProtocol } from '@core/transport/transport-protocol.interface';
 
-export interface OptionMetadata {
-  flags: string;
-  description: string;
-  choices?: string[];
-  defaultValue?: any;
-  required?: boolean;
-}
-
-export function Option(metadata: OptionMetadata): PropertyDecorator {
-  return (target, propertyKey) => {
-    Reflect.defineMetadata('option', metadata, target, propertyKey);
-
-    const existingProperties = (Reflect.getMetadata('options', target) as string[]) || [];
-
-    existingProperties.push(propertyKey as string);
-
-    Reflect.defineMetadata('options', existingProperties, target);
-  };
+export class TransportProtocolFactory {
+  static create(protocolName: string): TransportProtocol {
+    switch (protocolName.toLowerCase()) {
+      case 'json': {
+        return new JsonTransportProtocol();
+      }
+      case 'nestjs': {
+        return new NestJsTransportProtocol();
+      }
+      case 'default': {
+        return new DefaultTransportProtocol();
+      }
+      default: {
+        throw new Error(`Unsupported transport protocol: ${protocolName}`);
+      }
+    }
+  }
 }

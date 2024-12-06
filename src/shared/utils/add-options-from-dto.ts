@@ -41,7 +41,13 @@ export function addOptionsFromDto<T>(cmd: Command, dtoClass: new () => T): void 
 
     if (metadata) {
       const optionMethod = metadata.required ? cmd.requiredOption : cmd.option;
-      optionMethod.call(cmd, metadata.flags, metadata.description, metadata.defaultValue);
+      let optionFlags = metadata.flags;
+
+      if (metadata.choices) {
+        optionFlags += ` (${metadata.choices.join('|')})`;
+      }
+
+      optionMethod.call(cmd, optionFlags, metadata.description, metadata.defaultValue);
     }
   }
 }

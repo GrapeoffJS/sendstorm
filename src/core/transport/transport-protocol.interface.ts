@@ -1,10 +1,10 @@
 /*
  * This file is part of the SendStorm project.
  *
- * File: option.decorator.ts
+ * File: transport-protocol.interface.ts
  * Project: sendstorm
  * Author: Dmitriy Grape
- * Date: 28.11.2024
+ * Date: 07.12.2024
  *
  * Copyright (C) 2024 Dmitriy Grape
  *
@@ -25,24 +25,7 @@
  * along with SendStorm. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import 'reflect-metadata';
-
-export interface OptionMetadata {
-  flags: string;
-  description: string;
-  choices?: string[];
-  defaultValue?: any;
-  required?: boolean;
-}
-
-export function Option(metadata: OptionMetadata): PropertyDecorator {
-  return (target, propertyKey) => {
-    Reflect.defineMetadata('option', metadata, target, propertyKey);
-
-    const existingProperties = (Reflect.getMetadata('options', target) as string[]) || [];
-
-    existingProperties.push(propertyKey as string);
-
-    Reflect.defineMetadata('options', existingProperties, target);
-  };
+export interface TransportProtocol {
+  serialize(message: Record<string, any> | string): Buffer | string;
+  deserialize(data: Buffer | string): Record<string, any> | string;
 }
