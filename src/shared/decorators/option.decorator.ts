@@ -1,10 +1,10 @@
 /*
  * This file is part of the SendStorm project.
  *
- * File: index.ts
+ * File: option.decorator.ts
  * Project: sendstorm
  * Author: Dmitriy Grape
- * Date: 26.11.2024
+ * Date: 28.11.2024
  *
  * Copyright (C) 2024 Dmitriy Grape
  *
@@ -25,12 +25,24 @@
  * along with SendStorm. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import chalk from 'chalk';
-import { program } from 'commander';
+import 'reflect-metadata';
 
-program
-  .name('sendstorm')
-  .description(chalk.bold(chalk.yellowBright('A versatile CLI tool for testing microservices over multiple protocols')))
-  .version(chalk.yellowBright(__VERSION__)); // Not an error, will be substituted properly to an actual package version by ESBuild
+export interface OptionMetadata {
+  flags: string;
+  description: string;
+  choices?: string[];
+  defaultValue?: any;
+  required?: boolean;
+}
 
-program.parse(process.argv);
+export function Option(metadata: OptionMetadata): PropertyDecorator {
+  return (target, propertyKey) => {
+    Reflect.defineMetadata('option', metadata, target, propertyKey);
+
+    const existingProperties = (Reflect.getMetadata('options', target) as string[]) || [];
+
+    existingProperties.push(propertyKey as string);
+
+    Reflect.defineMetadata('options', existingProperties, target);
+  };
+}

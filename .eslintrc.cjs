@@ -70,5 +70,6 @@ module.exports = {
     'unicorn/no-static-only-class': 'off',
     'unicorn/prefer-array-some': 'off',
     'unicorn/no-array-reduce': 'off',
+    'unicorn/text-encoding-identifier-case': 'off',
   },
 };
