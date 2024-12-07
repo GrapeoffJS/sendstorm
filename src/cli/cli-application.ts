@@ -56,6 +56,8 @@ export class CliApplication {
       .description(
         chalk.bold(chalk.yellowBright('A versatile CLI tool for testing microservices over multiple protocols')),
       )
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       .version(chalk.yellowBright(__VERSION__)); // __VERSION__ will be replaced by ESBuild
   }
 

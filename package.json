@@ -28,7 +28,7 @@
     "email": "grapeoff.official@gmail.com"
   },
   "scripts": {
-    "build:prod": "node esbuild.prod.mjs",
+    "build:prod": "npm run prebuild && node esbuild.prod.mjs",
     "build:dev": "node esbuild.dev.mjs",
     "start": "node dist/index.js",
     "clean": "rm -rf dist",
