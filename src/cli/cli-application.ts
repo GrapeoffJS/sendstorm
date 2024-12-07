@@ -25,6 +25,7 @@
  * along with SendStorm. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { Logger } from '@cli/utils/logger';
 import { addOptionsFromDto } from '@shared/utils/add-options-from-dto';
 import { validateDto } from '@shared/utils/validate-dto';
 import chalk from 'chalk';
@@ -80,7 +81,8 @@ export class CliApplication {
           const args = await validateDto(dtoClass, options);
           await handler.execute(args);
         } catch (error) {
-          console.error(chalk.redBright(`Error: ${(error as Error).message}`));
+          Logger.error(`Faild to execute command '${command.name()}, ensure you passed write credentials.'`);
+          Logger.warn(`Runtime Error: ${(error as Error).message}`);
         }
       });
 
