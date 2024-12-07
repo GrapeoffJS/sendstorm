@@ -42,6 +42,7 @@ export class TcpClient implements AbstractTransport {
     this._client.on('error', error => this._onError?.(error));
     this._client.on('close', () => {
       console.log('TCP connection closed');
+      process.exit(0);
     });
   }
 
