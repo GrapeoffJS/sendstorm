@@ -25,6 +25,7 @@
  * along with SendStorm. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { Logger } from '@cli/utils/logger';
 import { addOptionsFromDto } from '@shared/utils/add-options-from-dto';
 import { validateDto } from '@shared/utils/validate-dto';
 import chalk from 'chalk';
@@ -39,29 +40,22 @@ export class CliApplication {
     this._program = new Command();
   }
 
-  /**
-   * Initializes the CLI application with configuration and registered commands.
-   */
   initialize(): void {
     this.configureProgram();
     this.registerCommands();
   }
 
-  /**
-   * Configures global settings for the CLI program.
-   */
   private configureProgram(): void {
     this._program
       .name('sendstorm')
       .description(
         chalk.bold(chalk.yellowBright('A versatile CLI tool for testing microservices over multiple protocols')),
       )
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       .version(chalk.yellowBright(__VERSION__)); // __VERSION__ will be replaced by ESBuild
   }
 
-  /**
-   * Registers all command handlers in the CLI application.
-   */
   private registerCommands(): void {
     for (const handler of this.commandHandlers) {
       const command = handler.build();
@@ -78,7 +72,8 @@ export class CliApplication {
           const args = await validateDto(dtoClass, options);
           await handler.execute(args);
         } catch (error) {
-          console.error(chalk.redBright(`Error: ${(error as Error).message}`));
+          Logger.error(`Faild to execute command '${command.name()}, ensure you passed write credentials.'`);
+          Logger.warn(`Runtime Error: ${(error as Error).message}`);
         }
       });
 
@@ -86,9 +81,6 @@ export class CliApplication {
     }
   }
 
-  /**
-   * Runs the CLI program by parsing the command-line arguments.
-   */
   public run(): void {
     this._program.parse(process.argv);
   }
