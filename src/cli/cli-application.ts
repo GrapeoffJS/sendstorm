@@ -40,17 +40,11 @@ export class CliApplication {
     this._program = new Command();
   }
 
-  /**
-   * Initializes the CLI application with configuration and registered commands.
-   */
   initialize(): void {
     this.configureProgram();
     this.registerCommands();
   }
 
-  /**
-   * Configures global settings for the CLI program.
-   */
   private configureProgram(): void {
     this._program
       .name('sendstorm')
@@ -62,9 +56,6 @@ export class CliApplication {
       .version(chalk.yellowBright(__VERSION__)); // __VERSION__ will be replaced by ESBuild
   }
 
-  /**
-   * Registers all command handlers in the CLI application.
-   */
   private registerCommands(): void {
     for (const handler of this.commandHandlers) {
       const command = handler.build();
@@ -90,9 +81,6 @@ export class CliApplication {
     }
   }
 
-  /**
-   * Runs the CLI program by parsing the command-line arguments.
-   */
   public run(): void {
     this._program.parse(process.argv);
   }
